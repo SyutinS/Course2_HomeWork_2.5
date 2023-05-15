@@ -43,7 +43,7 @@ public class Employee {
 
     @Override
     public String toString() {
-        return "ФИ: " +
+        return "Employee: " +
                 " " + lastName + " " +
                 " " + firstName
                 ;

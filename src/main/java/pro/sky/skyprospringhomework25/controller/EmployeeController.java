@@ -4,59 +4,41 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import pro.sky.skyprospringhomework25.exception.BadEmployeeNumberException;
 import pro.sky.skyprospringhomework25.list.Employee;
 import pro.sky.skyprospringhomework25.service.EmployeeService;
 
-import java.util.ArrayList;
-import java.util.Collection;
+import java.util.List;
 
 @RequestMapping("/employee")
 @RestController
 public class EmployeeController {
 
-    private final EmployeeService service;
-//    private Integer number;
+    private final EmployeeService employeeService;
 
-    public EmployeeController(EmployeeService service) {
-        this.service = service;
+    public EmployeeController(EmployeeService employeeService) {
+        this.employeeService = employeeService;
     }
-
-//    @GetMapping("/number")
-//    public String infoNumber(@RequestParam("number") Integer number) throws BadEmployeeNumberException {
-//        return employeeService.infoNumber(number);
-//    }
-
-//    @GetMapping("/print")
-//    public String printEmployee(Employee employee) {
-//        employeeService.printEmployee(employee);
-//        return employee.toString();
-//    }
 
     @GetMapping("/add")
-    public Employee addEmployee(@RequestParam("firstname") String firstName,
-                              @RequestParam("lastname") String lastName) {
-//        Employee employee = new Employee(firstName, lastName);
-        return service.add(firstName, lastName);
-//        return " новый сотрудник успешно добавлен ";// + printEmployee(employee);
+    public Employee addEmployee(@RequestParam("firstName") String firstName,
+                                @RequestParam("lastName") String lastName) {
+        return employeeService.addEmployee(firstName, lastName);
     }
 
-    @GetMapping("/delete")
-    public Employee deleteEmployee(@RequestParam("firstname") String firstName,
-                                 @RequestParam("lastname") String lastName){
-//            @RequestParam("number") Integer deleteNumber)){
-       return service.delete(firstName, lastName);
-//        return " сотрудник успешно удален ";
+    @GetMapping("/remove")
+    public Employee removeEmployee(@RequestParam("firstName") String firstName,
+                                   @RequestParam("lastName") String lastName) {
+        return employeeService.removeEmployee(firstName, lastName);
     }
 
-    public Employee searchEmployee(@RequestParam("firstname") String firstName,
-                                 @RequestParam("lastname") String lastName) {
-        return service.search(firstName, lastName);
-//        return " сотрудник найден ";
+    @GetMapping("/find")
+    public Employee findEmployee(@RequestParam("firstName") String firstName,
+                                 @RequestParam("lastName") String lastName) {
+        return employeeService.findEmployee(firstName, lastName);
     }
 
-    @GetMapping
-    public Collection<Employee> searchAll() {
-        return service.searchAll();
+    @GetMapping("/list")
+    public List<Employee> getEmployeeList() {
+        return employeeService.getEmployeeList();
     }
 }
